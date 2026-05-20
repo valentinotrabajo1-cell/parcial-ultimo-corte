@@ -16,4 +16,25 @@ struct Jugador {
 enum TipoEnemigo {
     GOBLIN,   
     SLIME     
+};struct Enemigo {
+    int x;
+    int y;
+    int vida;
+    int sala;           
+    bool vivo;
+    TipoEnemigo tipo;
+    int contador_turno; 
 };
+
+
+struct Item {
+    int x;
+    int y;
+    int sala;
+    bool visible;       
+    char simbolo;
+};
+
+
+
+
