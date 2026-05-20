@@ -29,7 +29,7 @@
 #define TECLA_SOLTAR   'q'
 #define TECLA_SALIR    'x'
 #define TECLA_ATACAR   'f'   // Nueva: atacar enemigos cercanos
-#define TECLA_MAPA     'm'   // Nueva: mostrar minimapa
+#define TECLA_MAPA     'm'   // Nueva: mostrar minimapa, esto haria parte de la innovacion
 
 
 #define VIDA_JUGADOR       5
