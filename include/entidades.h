@@ -35,6 +35,30 @@ struct Item {
     char simbolo;
 };
 
+struct Puerta {
+    int x;             
+    int y;
+    int sala_destino;  
+    int x_destino;     
+    int y_destino;
+};
 
+
+struct Sala {
+    char mapa[ALTO_SALA][ANCHO_SALA]; 
+    Puerta puertas[4];                
+    int num_puertas;
+    bool tiene_meta;  
+};
+
+
+struct Estadisticas {
+    int turnos;           
+    int enemigos_matados; 
+};
+
+
+
+#endif
 
 
