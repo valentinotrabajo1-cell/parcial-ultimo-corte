@@ -1,1 +1,2 @@
-# parcial-ultimo-corte
+# Valentino Urzola 
+# Nicol Valentina Vanegas
