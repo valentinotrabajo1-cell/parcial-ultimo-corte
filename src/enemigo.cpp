@@ -116,4 +116,35 @@ static void perseguir(Enemigo* enemigo, const Jugador* jugador, const Sala salas
     enemigo->y = nuevo_y;
 }
 
+void mover_enemigos(
+    Enemigo enemigos[],
+    int num_enemigos,
+    const Jugador* jugador,
+    const Sala salas[]
+) {
+    int i;
+    for (i = 0; i < num_enemigos; i++) {
+        Enemigo* e = &enemigos[i];
+
+        // Solo actuamos sobre enemigos vivos en la sala actual del jugador
+        if (!e->vivo || e->sala != jugador->sala_actual) {
+            continue;
+        }
+
+        if (e->tipo == GOBLIN) {
+            // Goblin: persigue cada turno sin pausa
+            perseguir(e, jugador, salas);
+        } else {
+            // Slime: se mueve lento, solo cada 2 turnos
+            e->contador_turno++;
+            if (e->contador_turno >= 2) {
+                perseguir(e, jugador, salas);
+                e->contador_turno = 0;
+            }
+        }
+    }
+}
+
+
+
 
