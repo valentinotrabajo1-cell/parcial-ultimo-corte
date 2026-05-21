@@ -96,3 +96,29 @@ void revisar_item(Jugador* jugador, Item items[], int num_items) {
         }
     }
 }
+
+/*
+  Suelta el item del inventario en la posicion actual del jugador.
+*/
+void soltar_item(Jugador* jugador, Item items[], int num_items) {
+    if (!jugador->tiene_item) {
+        printf("  [-] No llevas ningun objeto.\n");
+        return;
+    }
+
+    int i;
+    for (i = 0; i < num_items; i++) {
+        Item* it = &items[i];
+        // Buscamos el primer item no visible para soltarlo ahi
+        if (!it->visible && it->simbolo == '*') {
+            it->x = jugador->x;
+            it->y = jugador->y;
+            it->sala = jugador->sala_actual;
+            it->visible = 1;
+            jugador->tiene_item = 0;
+            printf("  [-] Soltaste el objeto en (%d,%d).\n", it->x, it->y);
+            return;
+        }
+    }
+}
+
