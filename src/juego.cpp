@@ -75,3 +75,31 @@ int verificar_victoria(const Jugador* jugador, const Sala salas[]) {
 int verificar_derrota(const Jugador* jugador) {
     return jugador->vida <= 0;
 }
+
+void mostrar_victoria() {
+    limpiar_pantalla();
+    printf("\n");
+    printf("  ==========================================\n");
+    printf("  ||                                      ||\n");
+    printf("  ||       *** VICTORIA! ***              ||\n");
+    printf("  ||                                      ||\n");
+    printf("  ||  Llegaste a la salida con el         ||\n");
+    printf("  ||  objeto clave. Escapaste del         ||\n");
+    printf("  ||  dungeon! Eres un heroe.             ||\n");
+    printf("  ||                                      ||\n");
+    printf("  ==========================================\n\n");
+}
+
+void mostrar_derrota() {
+    limpiar_pantalla();
+    printf("\n");
+    printf("  ==========================================\n");
+    printf("  ||                                      ||\n");
+    printf("  ||       --- GAME OVER ---              ||\n");
+    printf("  ||                                      ||\n");
+    printf("  ||  Te quedaste sin vida.               ||\n");
+    printf("  ||  El dungeon te vencio.               ||\n");
+    printf("  ||                                      ||\n");
+    printf("  ==========================================\n\n");
+}
+
