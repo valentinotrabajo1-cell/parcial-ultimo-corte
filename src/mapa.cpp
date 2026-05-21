@@ -201,3 +201,76 @@ void inicializar_salas(Sala salas[], int num_salas) {
 
     salas[7].num_puertas = 1;
 }
+
+
+// -------------------------------------------------------
+// Dibuja la sala actual en la consola
+// -------------------------------------------------------
+void dibujar_sala(
+    const Sala salas[],
+    int sala_actual,
+    const Jugador* jugador,
+    const Enemigo enemigos[],
+    int num_enemigos,
+    const Item items[],
+    int num_items
+) {
+    int fila, col, i;
+
+    // Copiamos el mapa base en un buffer temporal para no modificar el original
+    char buffer[ALTO_SALA][ANCHO_SALA];
+    for (fila = 0; fila < ALTO_SALA; fila++) {
+        for (col = 0; col < ANCHO_SALA; col++) {
+            buffer[fila][col] = salas[sala_actual].mapa[fila][col];
+        }
+    }
+
+    // Ponemos los items visibles en el buffer
+    for (i = 0; i < num_items; i++) {
+        if (items[i].sala == sala_actual && items[i].visible) {
+            buffer[items[i].y][items[i].x] = items[i].simbolo;
+        }
+    }
+
+    // Ponemos los enemigos vivos de esta sala en el buffer
+    for (i = 0; i < num_enemigos; i++) {
+        if (enemigos[i].vivo && enemigos[i].sala == sala_actual) {
+            char sim = (enemigos[i].tipo == GOBLIN) ? SIM_ENEMIGO_A : SIM_ENEMIGO_B;
+            buffer[enemigos[i].y][enemigos[i].x] = sim;
+        }
+    }
+
+    // Ponemos al jugador
+    buffer[jugador->y][jugador->x] = SIM_JUGADOR;
+
+    // Imprimimos el buffer
+    printf("\n  Sala %d\n", sala_actual);
+    printf("  ");
+    for (col = 0; col < ANCHO_SALA; col++) printf("-");
+    printf("\n");
+
+    for (fila = 0; fila < ALTO_SALA; fila++) {
+        printf("  ");
+        for (col = 0; col < ANCHO_SALA; col++) {
+            printf("%c", buffer[fila][col]);
+        }
+        printf("\n");
+    }
+
+    printf("  ");
+    for (col = 0; col < ANCHO_SALA; col++) printf("-");
+    printf("\n");
+}
+
+// Devuelve 1 si la celda es pared (no se puede pisar)
+int es_pared(const Sala salas[], int sala, int x, int y) {
+    if (x < 0 || x >= ANCHO_SALA || y < 0 || y >= ALTO_SALA) {
+        return 1; // fuera de limites = pared
+    }
+    char celda = salas[sala].mapa[y][x];
+    // Las puertas y la meta no son paredes
+    if (celda == SIM_PUERTA || celda == SIM_META) {
+        return 0;
+    }
+    return celda == SIM_PARED;
+}
