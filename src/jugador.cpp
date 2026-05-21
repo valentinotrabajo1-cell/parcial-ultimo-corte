@@ -117,7 +117,23 @@ void soltar_item(Jugador* jugador, Item items[], int num_items) {
             it->visible = 1;
             jugador->tiene_item = 0;
             printf("  [-] Soltaste el objeto en (%d,%d).\n", it->x, it->y);
-            return;
+            return;void mostrar_estado(const Jugador* jugador) {
+    int i;
+    printf("  Vida: ");
+    for (i = 0; i < jugador->vida; i++) printf("*");
+    for (i = jugador->vida; i < VIDA_JUGADOR; i++) printf("-");
+    printf(" (%d/%d)", jugador->vida, VIDA_JUGADOR);
+
+    if (jugador->tiene_item) {
+        printf("  | Inventario: [Objeto clave]");
+    } else {
+        printf("  | Inventario: [vacio]");
+    }
+
+    printf("  | Sala: %d\n", jugador->sala_actual);
+    printf("  Controles: [W/A/S/D] mover  [F] atacar  [E] recoger  [Q] soltar  [M] mapa  [X] salir\n");
+    printf("  Leyenda: @ jugador  G goblin(vida:2)  S slime(vida:3)  ! pocion  * objeto  E meta\n");
+}
         }
     }
 }
