@@ -54,3 +54,150 @@ static void agregar_pared_interna(
         }
     }
 }
+
+void inicializar_salas(Sala salas[], int num_salas) {
+    int i;
+
+    // Primero llenamos todas las salas con la base
+    for (i = 0; i < num_salas; i++) {
+        sala_base(salas[i].mapa);
+        salas[i].num_puertas = 0;
+        salas[i].tiene_meta = 0;
+    }
+
+    // ---- SALA 0: entrada, puerta derecha hacia sala 1 ----
+    agregar_pared_interna(salas[0].mapa, 5, 2, 4, 1); // pared vertical corta
+    salas[0].mapa[5][ANCHO_SALA - 1] = SIM_PUERTA;    // puerta derecha
+
+    salas[0].puertas[0].x = ANCHO_SALA - 1;
+    salas[0].puertas[0].y = 5;
+    salas[0].puertas[0].sala_destino = 1;
+    salas[0].puertas[0].x_destino = 1;
+    salas[0].puertas[0].y_destino = 5;
+    salas[0].num_puertas = 1;
+
+    // ---- SALA 1: central, puertas: izquierda->0, derecha->2, abajo->3 ----
+    agregar_pared_interna(salas[1].mapa, 8, 2, 3, 1);
+    agregar_pared_interna(salas[1].mapa, 4, 4, 5, 0); // pared horizontal
+
+    salas[1].mapa[5][0]            = SIM_PUERTA; // izquierda -> sala 0
+    salas[1].mapa[5][ANCHO_SALA-1] = SIM_PUERTA; // derecha   -> sala 2
+    salas[1].mapa[ALTO_SALA-1][10] = SIM_PUERTA; // abajo     -> sala 3
+
+    salas[1].puertas[0].x = 0;           salas[1].puertas[0].y = 5;
+    salas[1].puertas[0].sala_destino = 0;
+    salas[1].puertas[0].x_destino = ANCHO_SALA - 2;
+    salas[1].puertas[0].y_destino = 5;
+
+    salas[1].puertas[1].x = ANCHO_SALA-1; salas[1].puertas[1].y = 5;
+    salas[1].puertas[1].sala_destino = 2;
+    salas[1].puertas[1].x_destino = 1;
+    salas[1].puertas[1].y_destino = 5;
+
+    salas[1].puertas[2].x = 10; salas[1].puertas[2].y = ALTO_SALA-1;
+    salas[1].puertas[2].sala_destino = 3;
+    salas[1].puertas[2].x_destino = 10;
+    salas[1].puertas[2].y_destino = 1;
+
+    salas[1].num_puertas = 3;
+
+    // ---- SALA 2: puertas: izquierda->1, derecha->6 ----
+    agregar_pared_interna(salas[2].mapa, 10, 3, 4, 1);
+
+    salas[2].mapa[5][0]            = SIM_PUERTA; // izquierda -> sala 1
+    salas[2].mapa[5][ANCHO_SALA-1] = SIM_PUERTA; // derecha   -> sala 6
+
+    salas[2].puertas[0].x = 0; salas[2].puertas[0].y = 5;
+    salas[2].puertas[0].sala_destino = 1;
+    salas[2].puertas[0].x_destino = ANCHO_SALA - 2;
+    salas[2].puertas[0].y_destino = 5;
+
+    salas[2].puertas[1].x = ANCHO_SALA-1; salas[2].puertas[1].y = 5;
+    salas[2].puertas[1].sala_destino = 6;
+    salas[2].puertas[1].x_destino = 1;
+    salas[2].puertas[1].y_destino = 5;
+
+    salas[2].num_puertas = 2;
+
+    // ---- SALA 3: puertas: arriba->1, derecha->4, abajo->5 ----
+    agregar_pared_interna(salas[3].mapa, 5, 2, 6, 1);
+
+    salas[3].mapa[0][10]           = SIM_PUERTA; // arriba   -> sala 1
+    salas[3].mapa[5][ANCHO_SALA-1] = SIM_PUERTA; // derecha  -> sala 4
+    salas[3].mapa[ALTO_SALA-1][10] = SIM_PUERTA; // abajo    -> sala 5
+
+    salas[3].puertas[0].x = 10; salas[3].puertas[0].y = 0;
+    salas[3].puertas[0].sala_destino = 1;
+    salas[3].puertas[0].x_destino = 10;
+    salas[3].puertas[0].y_destino = ALTO_SALA - 2;
+
+    salas[3].puertas[1].x = ANCHO_SALA-1; salas[3].puertas[1].y = 5;
+    salas[3].puertas[1].sala_destino = 4;
+    salas[3].puertas[1].x_destino = 1;
+    salas[3].puertas[1].y_destino = 5;
+
+    salas[3].puertas[2].x = 10; salas[3].puertas[2].y = ALTO_SALA-1;
+    salas[3].puertas[2].sala_destino = 5;
+    salas[3].puertas[2].x_destino = 10;
+    salas[3].puertas[2].y_destino = 1;
+
+    salas[3].num_puertas = 3;
+
+    // ---- SALA 4: puertas: izquierda->3 ----
+    agregar_pared_interna(salas[4].mapa, 7, 2, 5, 1);
+    agregar_pared_interna(salas[4].mapa, 12, 4, 4, 1);
+
+    salas[4].mapa[5][0] = SIM_PUERTA; // izquierda -> sala 3
+
+    salas[4].puertas[0].x = 0; salas[4].puertas[0].y = 5;
+    salas[4].puertas[0].sala_destino = 3;
+    salas[4].puertas[0].x_destino = ANCHO_SALA - 2;
+    salas[4].puertas[0].y_destino = 5;
+
+    salas[4].num_puertas = 1;
+
+    // ---- SALA 5: puertas: arriba->3, derecha->7 ----
+    agregar_pared_interna(salas[5].mapa, 4, 3, 3, 1);
+
+    salas[5].mapa[0][10]           = SIM_PUERTA; // arriba  -> sala 3
+    salas[5].mapa[5][ANCHO_SALA-1] = SIM_PUERTA; // derecha -> sala 7
+
+    salas[5].puertas[0].x = 10; salas[5].puertas[0].y = 0;
+    salas[5].puertas[0].sala_destino = 3;
+    salas[5].puertas[0].x_destino = 10;
+    salas[5].puertas[0].y_destino = ALTO_SALA - 2;
+
+    salas[5].puertas[1].x = ANCHO_SALA-1; salas[5].puertas[1].y = 5;
+    salas[5].puertas[1].sala_destino = 7;
+    salas[5].puertas[1].x_destino = 1;
+    salas[5].puertas[1].y_destino = 5;
+
+    salas[5].num_puertas = 2;
+
+    // ---- SALA 6: puertas: izquierda->2 ----
+    agregar_pared_interna(salas[6].mapa, 9, 2, 4, 1);
+    agregar_pared_interna(salas[6].mapa, 14, 4, 3, 1);
+
+    salas[6].mapa[5][0] = SIM_PUERTA; // izquierda -> sala 2
+
+    salas[6].puertas[0].x = 0; salas[6].puertas[0].y = 5;
+    salas[6].puertas[0].sala_destino = 2;
+    salas[6].puertas[0].x_destino = ANCHO_SALA - 2;
+    salas[6].puertas[0].y_destino = 5;
+
+    salas[6].num_puertas = 1;
+
+    // ---- SALA 7: sala final con la META, puerta: izquierda->5 ----
+    agregar_pared_interna(salas[7].mapa, 6, 2, 3, 1);
+
+    salas[7].mapa[5][0]  = SIM_PUERTA; // izquierda -> sala 5
+    salas[7].mapa[5][18] = SIM_META;   // escalera de salida
+    salas[7].tiene_meta  = 1;
+
+    salas[7].puertas[0].x = 0; salas[7].puertas[0].y = 5;
+    salas[7].puertas[0].sala_destino = 5;
+    salas[7].puertas[0].x_destino = ANCHO_SALA - 2;
+    salas[7].puertas[0].y_destino = 5;
+
+    salas[7].num_puertas = 1;
+}
