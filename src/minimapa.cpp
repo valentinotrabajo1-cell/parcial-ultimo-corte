@@ -21,4 +21,29 @@
   Lo dibujamos con caracteres ASCII sencillos.
 */
 
+// Arreglo estatico: registra si cada sala fue visitada
+// Indice = numero de sala, valor = 1 si visitada, 0 si no
+static int salas_visitadas[MAX_SALAS] = {0, 0, 0, 0, 0, 0, 0, 0};
 
+// Marca una sala como visitada
+void registrar_sala_visitada(int sala) {
+    if (sala >= 0 && sala < MAX_SALAS) {
+        salas_visitadas[sala] = 1;
+    }
+}
+
+/*
+  Devuelve el texto que se muestra para una sala:
+  - Si es la sala actual del jugador: "[N]"
+  - Si fue visitada: " N "
+  - Si no fue visitada: " ? "
+*/
+static void imprimir_sala(int numero_sala, int sala_actual) {
+    if (numero_sala == sala_actual) {
+        printf("[%d]", numero_sala); // sala donde esta el jugador
+    } else if (salas_visitadas[numero_sala]) {
+        printf(" %d ", numero_sala); // sala visitada
+    } else {
+        printf(" ? "); // sala desconocida
+    }
+}
