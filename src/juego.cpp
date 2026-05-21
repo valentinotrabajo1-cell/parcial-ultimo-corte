@@ -98,7 +98,7 @@ void mostrar_derrota() {
     printf("  ||       --- GAME OVER ---              ||\n");
     printf("  ||                                      ||\n");
     printf("  ||  Te quedaste sin vida.               ||\n");
-    printf("  ||  El dungeon te vencio.               ||\n");
+    printf("  ||  valiste vrg.                        ||\n");
     printf("  ||                                      ||\n");
     printf("  ==========================================\n\n");
 }
