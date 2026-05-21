@@ -145,6 +145,44 @@ void mover_enemigos(
     }
 }
 
+/*
+  atacar_jugador: los enemigos hacen danio al jugador si estan adyacentes.
+  "Adyacente" significa distancia de Manhattan = 1 (justo al lado).
+  Esto reemplaza el sistema anterior donde el danio era al pisar la misma celda.
+  Ahora el jugador tiene que presionar 'F' para contraatacar.
+*/
+void atacar_jugador(
+    const Enemigo enemigos[],
+    int num_enemigos,
+    Jugador* jugador
+) {
+    int i;
+    for (i = 0; i < num_enemigos; i++) {
+        const Enemigo* e = &enemigos[i];
 
+        if (!e->vivo || e->sala != jugador->sala_actual) {
+            continue;
+        }
+
+        // Calculamos distancia de Manhattan manualmente
+        int diff_x = e->x - jugador->x;
+        int diff_y = e->y - jugador->y;
+        if (diff_x < 0) diff_x = -diff_x;
+        if (diff_y < 0) diff_y = -diff_y;
+        int distancia = diff_x + diff_y;
+
+        // Si el enemigo esta en la misma celda o justo al lado, ataca
+        if (distancia <= 1) {
+            int dano = (e->tipo == GOBLIN) ? DANO_GOBLIN : DANO_SLIME;
+            jugador->vida -= dano;
+
+            if (e->tipo == GOBLIN) {
+                printf("  [!] Un Goblin te ataco! Vida: %d\n", jugador->vida);
+            } else {
+                printf("  [!] Un Slime te ataco! Vida: %d\n", jugador->vida);
+            }
+        }
+    }
+}
 
 
