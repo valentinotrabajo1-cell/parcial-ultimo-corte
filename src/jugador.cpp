@@ -65,3 +65,34 @@ int mover_jugador(
     return 0;
 }
 
+*
+  Revisa si el jugador esta sobre un item.
+  Si el inventario esta libre, lo recoge.
+  Los items de tipo curacion se aplican inmediatamente.
+*/
+void revisar_item(Jugador* jugador, Item items[], int num_items) {
+    int i;
+    for (i = 0; i < num_items; i++) {
+        Item* it = &items[i]; // puntero al item
+        if (it->sala == jugador->sala_actual &&
+            it->visible &&
+            it->x == jugador->x &&
+            it->y == jugador->y)
+        {
+            if (it->simbolo == '!') {
+                // Pocion de curacion: se aplica directo, no ocupa inventario
+                jugador->vida += CURACION_ITEM;
+                if (jugador->vida > VIDA_JUGADOR) jugador->vida = VIDA_JUGADOR;
+                it->visible = 0;
+                printf("  [!] Recogiste una pocion. Vida: %d\n", jugador->vida);
+            } else if (!jugador->tiene_item) {
+                // Objeto clave: va al inventario
+                jugador->tiene_item = 1;
+                it->visible = 0;
+                printf("  [+] Recogiste un objeto clave. Guardado en inventario.\n");
+            } else {
+                printf("  [!] Inventario lleno. Suelta el objeto con '%c'.\n", TECLA_SOLTAR);
+            }
+        }
+    }
+}
