@@ -47,3 +47,53 @@ static void imprimir_sala(int numero_sala, int sala_actual) {
         printf(" ? "); // sala desconocida
     }
 }
+
+/*
+  Muestra el minimapa completo en pantalla.
+  El layout refleja la conexion real de las salas:
+
+  [0] -- [1] -- [2] -- [6]
+                 |
+               [3] -- [4]
+                 |
+               [5] -- [7]  <- META
+*/
+void mostrar_minimapa(int sala_actual) {
+    printf("\n  ============ MAPA DEL DUNGEON ============\n");
+    printf("\n");
+
+    // Fila 1: sala 0 -- sala 1 -- sala 2 -- sala 6
+    printf("  ");
+    imprimir_sala(0, sala_actual);
+    printf("--");
+    imprimir_sala(1, sala_actual);
+    printf("--");
+    imprimir_sala(2, sala_actual);
+    printf("--");
+    imprimir_sala(6, sala_actual);
+    printf("\n");
+
+    // Conexion vertical entre sala 1 y sala 3
+    printf("           |  \n");
+
+    // Fila 2: sala 3 -- sala 4
+    printf("         ");
+    imprimir_sala(3, sala_actual);
+    printf("--");
+    imprimir_sala(4, sala_actual);
+    printf("\n");
+
+    // Conexion vertical entre sala 3 y sala 5
+    printf("           |  \n");
+
+    // Fila 3: sala 5 -- sala 7 (META)
+    printf("         ");
+    imprimir_sala(5, sala_actual);
+    printf("--");
+    imprimir_sala(7, sala_actual);
+    printf(" <- META\n");
+
+    printf("\n");
+    printf("  Leyenda: [N]=estas aqui  N=visitada  ?=sin explorar\n");
+    printf("  ==========================================\n\n");
+}
