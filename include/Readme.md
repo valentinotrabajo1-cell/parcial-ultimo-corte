@@ -14,3 +14,11 @@ Cómo se llevó a cabo su implementación: Se utilizó un arreglo para guardar l
 Para qué se implementó; Se implementó para añadir estadísticas al juego y así aumentar la rejugabilidad.
 Por qué se consideró necesario: Se pensó que era útil porque permite evaluar el rendimiento del jugador durante la partida y añade un objetivo extra al completar el dungeon.
 Cómo se llevó a cabo su implementación: Se incorporaron contadores dentro del ciclo del juego para registrar cuántos turnos se han realizado y cuántos enemigos han sido derrotados. Al final de la partida, las estadísticas se muestran en la pantalla.
+
+Reglas Generales y Otras Instrucciones Importantes
+El proyecto fue desarrollado completamente en C++.
+El código se encuentra organizado en carpetas src e include.
+Se utilizaron múltiples archivos .h y .cpp.
+La compilación se realiza mediante Make y CMake.
+El proyecto es compatible con Linux, Windows y macOS.
+Se utilizaron arreglos estáticos para manejar entidades.
